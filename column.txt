@@ -1,0 +1,8 @@
+for i in range(len(array)):
+    column = [row[i] for row in array]
+
+list from string:
+table = [list(el) for el in string]
+
+Соединение в строку двухмерного массива.
+''.join(''.join(row) for row in matrix)
