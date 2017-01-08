@@ -14,39 +14,27 @@ def checkio(matrix):
         f = m[1][0]*m[0][1]*m[2][2]
         return a+b+c-d-e-f
     array = [[matrix[i][y] for i in range(3)] for y in range(3)]
-    #print(array)
-    res = [0, 225, 315]
+    res = [0+720, 225+720, 315+720]
     D = []
     D.append(findD(array))
-    #print('d', D, matrix)
     for i in range(0,3):
         tmp = []
         for y in range(0,3):
             arr = copy.deepcopy(array[y])
             arr[i] = res[y]
             tmp.append(arr)
-        #print('i',i, '===',tmp)
         D.append(findD(tmp))
-    print('d=', D)
+    #print('d=', D)
     result = [0,0,0]
-    result[0] = D[1]/D[0]
-    result[1] = D[2]/D[0]
-    result[2] = D[3]/D[0]
+    result[0] = (D[1]/D[0])%360
+    result[1] = (D[2]/D[0])%360
+    result[2] = (D[3]/D[0])%360
     for i, val in enumerate(result):
-        if val%1 >0:
-            if val%1 >= 0.5:
-                result[i] = math.ceil(val)
-            elif val%1 < 0.5:
-                result[i] = math.floor(val)
-        result[i] = int(result[i])%360
-    
+        if abs(val) > 180:
+            octothorpe = math.copysign(1, val)
+            result[i] = val-(360 * octothorpe)
             
-    for i, val in enumerate(result):
-        if val > 180:
-            result[i] = val-360
-            
-
-    return result
+    return [int(val) for val in result]
 
 ##print(checkio([[1, 2, 3],
 ##                     [3, 1, 2],
